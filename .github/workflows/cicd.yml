@@ -1,0 +1,44 @@
+name: GitHub Actions Demo
+run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
+on: [push]
+jobs:
+  Explore-GitHub-Actions:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
+      - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
+      - name: Check out repository code
+        uses: actions/checkout@v4
+      - run: echo "💡 The ${{ github.repository }} repository has been cloned to the runner."
+      - run: echo "🖥️ The workflow is now ready to test your code on the runner."
+      - name: List files in the repository
+        run: |
+          ls ${{ github.workspace }}
+      - run: echo "🍏 This job's status is ${{ job.status }}."
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20.x'
+      - run: export S3_BUCKET_NAME=$(terraform output -raw bucket_name)
+      - run: echo "Using S3 Bucket:${S3_BUCKET_NAME}"
+      - run: npm ci
+      - run: npm run build
+      - run: npm run test
+      - id: install-aws-cli
+        uses: unfor19/install-aws-cli-action@v1
+      - run: mkdir -p ~/.aws/
+      - run: echo "$super_secret" > ~/.aws/credentials
+        env:
+          super_secret: ${{ secrets.AWS_CONFIG }}
+      - run: cat ~/.aws/credentials
+      - run: aws configure list-profiles
+      - run: aws s3 ls --region eu-central-1 --profile Ramzi
+      - uses: hashicorp/setup-terraform@v2
+      - run: echo "backend \"s3\" {" > backend.tf
+      - run: echo "  bucket = \"$S3_BUCKET_NAME\"" >> backend.tf
+      - run: echo "  key    = \"terraform.tfstate\"" >> backend.tf
+      - run: echo "  region = \"eu-central-1\"" >> backend.tf
+      - run: echo "}" >> backend.tf
+      - run: terraform -chdir=./infra init -backend-config=backend.tf
+      - run: terraform -chdir=./infra validate
+      - run: terraform -chdir=./infra apply -auto-approve
