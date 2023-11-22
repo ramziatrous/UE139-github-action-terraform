@@ -7,9 +7,9 @@ output "bucket_id" {
 }
 
 output "website_endpoint" {
-  value = module.s3-website.website_endpoint
+  value = module.s3_website.website_endpoint
 }
 
 output "website_domain" {
-  value = module.s3-website.website_domain
+  value = module.s3_website.website_domain
 }
