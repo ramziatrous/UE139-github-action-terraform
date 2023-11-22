@@ -3,7 +3,7 @@ resource "aws_s3_bucket" "this" {
   force_destroy = true
 
   tags = {
-    Name        = var.bucket_name 
+    Name        = var.bucket_name # My lovely website"
     Terraform   = "True"
   }
 }
@@ -29,8 +29,6 @@ resource "aws_s3_bucket_public_access_block" "this" {
   ignore_public_acls      = false
   restrict_public_buckets = false
 }
-
-
 resource "aws_s3_bucket_policy" "this" {
   bucket = aws_s3_bucket.this.id
   policy = jsonencode({
