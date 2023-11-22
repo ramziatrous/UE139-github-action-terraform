@@ -10,5 +10,5 @@ variable "aws_profile" {
 
 variable "bucket_name" {
   type    = string
-  default = "mybucket00001111"
+  default = "mybucket000011111"
 }
