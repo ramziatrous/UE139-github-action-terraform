@@ -19,7 +19,7 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '20.x'
-      - run: export S3_BUCKET_NAME=$(terraform output -raw bucket_name)
+      - run: export S3_BUCKET_NAME="backetstat001"
       - run: echo "Using S3 Bucket:${S3_BUCKET_NAME}"
       - run: npm ci
       - run: npm run build
