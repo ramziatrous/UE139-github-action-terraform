@@ -7,6 +7,13 @@ terraform {
       version = "~> 5.0"
     }
   }
+
+  backend "s3" {
+    bucket = "tfstate-bucket-ramzi"
+    key    = "terraform.tfstate"
+    region = "eu-central-1"
+    dynamodb_table = "tfstate-table"
+  }
 }
 
 provider "aws" {

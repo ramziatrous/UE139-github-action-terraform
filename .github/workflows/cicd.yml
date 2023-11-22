@@ -34,11 +34,8 @@ jobs:
       - run: aws configure list-profiles
       - run: aws s3 ls --region eu-central-1 --profile Ramzi
       - uses: hashicorp/setup-terraform@v2
-      - run: echo "backend \"s3\" {" > backend.tf
-      - run: echo "  bucket = \"$S3_BUCKET_NAME\"" >> backend.tf
-      - run: echo "  key    = \"terraform.tfstate\"" >> backend.tf
-      - run: echo "  region = \"eu-central-1\"" >> backend.tf
-      - run: echo "}" >> backend.tf
-      - run: terraform -chdir=./infra init -backend-config=backend.tf
+      - run: terraform versions
+      - run: terraform -chdir=./infra init 
       - run: terraform -chdir=./infra validate
       - run: terraform -chdir=./infra apply -auto-approve
+      - run: aws s3 sync ./build s3://mybucket00001211 --profile Ramzi
