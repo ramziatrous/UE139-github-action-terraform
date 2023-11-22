@@ -10,7 +10,7 @@ terraform {
 
   backend "s3" {
     bucket = "tfstate-bucket-ramzi"
-    key    = "terraform.tfstate"
+    key    = "UE139-github-action-terraform/terraform.tfstate"
     region = "eu-central-1"
     dynamodb_table = "tfstate-table"
   }
