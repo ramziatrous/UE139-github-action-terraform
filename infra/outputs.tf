@@ -1,9 +1,9 @@
 output "bucket_arn" {
-  value = module.s3-website.bucket_arn
+  value = module.s3_website.bucket_arn
 }
 
 output "bucket_id" {
-  value = module.s3-website.bucket_id
+  value = module.s3_website.bucket_id
 }
 
 output "website_endpoint" {
