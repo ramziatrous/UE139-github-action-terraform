@@ -2,8 +2,8 @@ resource "aws_s3_bucket" "this" {
   bucket = var.bucket_name
 
   tags = {
-    Name      = "My lovely bucket for my lovely website"
-    Terraform = "true"
+    Name        = var.bucket_name 
+    Terraform   = "True"
   }
 }
 
@@ -17,6 +17,7 @@ resource "aws_s3_bucket_website_configuration" "this" {
   error_document {
     key = "error.html"
   }
+
 }
 
 resource "aws_s3_bucket_public_access_block" "this" {
@@ -27,6 +28,7 @@ resource "aws_s3_bucket_public_access_block" "this" {
   ignore_public_acls      = false
   restrict_public_buckets = false
 }
+
 
 resource "aws_s3_bucket_policy" "this" {
   bucket = aws_s3_bucket.this.id
