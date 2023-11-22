@@ -30,7 +30,7 @@ jobs:
 
       - name: Set up Terraform
         uses: hashicorp/setup-terraform@v2
-
+      - run: terraform version
       - name: Initialize Terraform
         run: terraform init
 
