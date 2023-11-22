@@ -2,7 +2,7 @@ import './App.css';
 
 function App() {
   return (
-      <h1>My Techstarter Website</h1>
+      <h1>My Techstarter Website ueber github actions</h1>
   );
 }
 
